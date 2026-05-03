@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Minet Kenya Lead Admin</title>
+    <style>
+        :root {
+            --brand-red: #ed1b24;
+            --brand-red-dark: #b70f18;
+            --brand-red-soft: #fff1f2;
+            --ink: #201f24;
+            --muted: #62606a;
+            --line: #e7e3e4;
+            --panel: #ffffff;
+            --wash: #faf8f8;
+            --success: #15803d;
+            --warning: #a16207;
+            --danger: #991b1b;
+            --sheet-green: #0f9d58;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            color: var(--ink);
+            background:
+                linear-gradient(135deg, rgba(237, 27, 36, 0.08) 0 1px, transparent 1px 28px),
+                var(--wash);
+            line-height: 1.45;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 14px 5%;
+            border-bottom: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.96);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+        }
+
+        .brand img {
+            width: 46px;
+            height: 46px;
+            object-fit: cover;
+            border-radius: 6px;
+            box-shadow: 0 8px 18px rgba(237, 27, 36, 0.22);
+        }
+
+        .brand small {
+            display: block;
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        main {
+            width: min(100%, 1420px);
+            margin: 0 auto;
+            padding: 24px 18px 46px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 18px;
+        }
+
+        .eyebrow {
+            margin-bottom: 6px;
+            color: var(--brand-red);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(30px, 4vw, 48px);
+            line-height: 1.04;
+        }
+
+        .topbar p {
+            max-width: 640px;
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .button,
+        button,
+        .link-button {
+            min-height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 14px;
+            border-radius: 6px;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 800;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s ease;
+            white-space: nowrap;
+        }
+
+        button,
+        .button {
+            border: 0;
+            background: var(--brand-red);
+            color: #ffffff;
+        }
+
+        button:hover,
+        .button:hover {
+            background: var(--brand-red-dark);
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            cursor: wait;
+            opacity: 0.65;
+            transform: none;
+        }
+
+        .link-button,
+        .secondary {
+            border: 1px solid var(--line);
+            background: #ffffff;
+            color: var(--ink);
+        }
+
+        .link-button:hover,
+        .secondary:hover {
+            border-color: var(--brand-red);
+            background: #ffffff;
+            color: var(--brand-red);
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .metric {
+            min-height: 92px;
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #ffffff;
+            box-shadow: 0 12px 28px rgba(32, 31, 36, 0.07);
+        }
+
+        .metric span {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .metric strong {
+            display: block;
+            margin-top: 8px;
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 360px;
+            gap: 16px;
+            align-items: start;
+        }
+
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--panel);
+            box-shadow: 0 18px 46px rgba(32, 31, 36, 0.09);
+            overflow: hidden;
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 16px;
+            border-top: 6px solid var(--brand-red);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .panel-head h2 {
+            font-size: 19px;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(120px, 1fr));
+            gap: 10px;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--line);
+            background: #ffffff;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            min-height: 40px;
+            padding: 0 10px;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            outline: none;
+            background: #ffffff;
+            color: var(--ink);
+            font: inherit;
+            font-size: 13px;
+        }
+
+        textarea {
+            min-height: 130px;
+            padding-top: 10px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--brand-red);
+            box-shadow: 0 0 0 4px rgba(237, 27, 36, 0.11);
+        }
+
+        .sheet-wrap {
+            max-height: 610px;
+            overflow: auto;
+            background:
+                linear-gradient(#ffffff 39px, transparent 39px),
+                repeating-linear-gradient(#ffffff 0 40px, #fbfbfb 40px 80px);
+        }
+
+        table {
+            width: 100%;
+            min-width: 1040px;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th,
+        td {
+            height: 42px;
+            padding: 8px 10px;
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: #f8f8f8;
+            color: #3f3d44;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        tbody tr {
+            background: #ffffff;
+        }
+
+        tbody tr:hover,
+        tbody tr.is-selected {
+            background: var(--brand-red-soft);
+        }
+
+        .row-number {
+            width: 42px;
+            background: #f8f8f8;
+            color: var(--muted);
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .lead-id {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 12px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            min-height: 25px;
+            padding: 0 9px;
+            border-radius: 999px;
+            background: var(--brand-red-soft);
+            color: var(--brand-red-dark);
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .status-pill.sent,
+        .status-pill.followed {
+            background: #f0fdf4;
+            color: var(--success);
+        }
+
+        .status-pill.waiting,
+        .status-pill.approved {
+            background: #fefce8;
+            color: var(--warning);
+        }
+
+        .status-pill.rejected,
+        .status-pill.failed {
+            background: #fef2f2;
+            color: var(--danger);
+        }
+
+        .inline-select {
+            min-width: 150px;
+        }
+
+        .row-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .row-actions button {
+            min-height: 30px;
+            padding: 0 9px;
+            font-size: 12px;
+        }
+
+        .day-list {
+            display: grid;
+            gap: 10px;
+            padding: 16px;
+            max-height: 230px;
+            overflow: auto;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .day-row {
+            display: grid;
+            grid-template-columns: 92px 1fr 34px;
+            gap: 10px;
+            align-items: center;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .day-bar {
+            height: 10px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #f1f1f1;
+        }
+
+        .day-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: var(--sheet-green);
+        }
+
+        .details {
+            padding: 16px;
+        }
+
+        .detail-grid {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 14px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #ffffff;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .detail-grid strong {
+            color: var(--ink);
+        }
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .quick-grid button {
+            min-height: 36px;
+            border: 1px solid var(--line);
+            background: #ffffff;
+            color: var(--ink);
+            font-size: 12px;
+        }
+
+        .status-message {
+            display: none;
+            margin: 12px 16px 16px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .status-message.is-success {
+            display: block;
+            border: 1px solid #bbf7d0;
+            background: #f0fdf4;
+            color: var(--success);
+        }
+
+        .status-message.is-error {
+            display: block;
+            border: 1px solid #fecaca;
+            background: #fef2f2;
+            color: var(--danger);
+        }
+
+        .empty-row {
+            height: 120px;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        .note {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 6px;
+            background: var(--brand-red-soft);
+            color: var(--brand-red-dark);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 1120px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 720px) {
+            header,
+            .topbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .dashboard,
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .header-actions a {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="brand">
+            <img src="profile.jpg" alt="Minet Kenya logo">
+            <div>
+                Minet Kenya
+                <small>Lead owner dashboard</small>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a class="link-button" href="ad.html">View Ad</a>
+            <a class="link-button" href="landing.html">View Landing</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="topbar">
+            <div>
+                <div class="eyebrow">Admin Sheet</div>
+                <h1>Lead follow-up dashboard.</h1>
+                <p>Review all leads by day, sort and filter the sheet, then update status or follow-up notes from one place.</p>
+            </div>
+            <button type="button" id="load-leads-btn">Load Leads</button>
+        </section>
+
+        <section class="dashboard" aria-label="Lead dashboard summary">
+            <div class="metric">
+                <span>Total Leads</span>
+                <strong id="total-count">0</strong>
+            </div>
+            <div class="metric">
+                <span>Waiting</span>
+                <strong id="waiting-count">0</strong>
+            </div>
+            <div class="metric">
+                <span>Sent</span>
+                <strong id="sent-count">0</strong>
+            </div>
+            <div class="metric">
+                <span>Followed Up</span>
+                <strong id="followed-count">0</strong>
+            </div>
+        </section>
+
+        <section class="layout">
+            <div class="panel">
+                <div class="panel-head">
+                    <h2>Leads Sheet</h2>
+                    <button type="button" class="secondary" id="refresh-btn">Refresh</button>
+                </div>
+
+                <div class="filters">
+                    <div class="field">
+                        <label for="start_date">Start Date</label>
+                        <input type="date" id="start_date">
+                    </div>
+                    <div class="field">
+                        <label for="end_date">End Date</label>
+                        <input type="date" id="end_date">
+                    </div>
+                    <div class="field">
+                        <label for="search_term">Search</label>
+                        <input type="search" id="search_term" placeholder="Name, email, phone">
+                    </div>
+                    <div class="field">
+                        <label for="filter_status">Status</label>
+                        <select id="filter_status">
+                            <option value="">All</option>
+                            <option value="Waiting for approval">Waiting for approval</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="Sent">Sent</option>
+                            <option value="Failed">Failed</option>
+                            <option value="Followed up">Followed up</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="filter_insurance">Insurance</label>
+                        <select id="filter_insurance">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="sort_by">Sort</label>
+                        <select id="sort_by">
+                            <option value="submitted_desc">Newest first</option>
+                            <option value="submitted_asc">Oldest first</option>
+                            <option value="name_asc">Name A-Z</option>
+                            <option value="status_asc">Status A-Z</option>
+                            <option value="insurance_asc">Insurance A-Z</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="sheet-wrap">
+                    <table aria-label="Leads table">
+                        <thead>
+                            <tr>
+                                <th class="row-number">#</th>
+                                <th data-sort="submitted_desc">Submitted</th>
+                                <th data-sort="lead_id">Lead ID</th>
+                                <th data-sort="name_asc">Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th data-sort="insurance_asc">Insurance</th>
+                                <th data-sort="status_asc">Status</th>
+                                <th>Inline Update</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lead-table-body">
+                            <tr>
+                                <td class="empty-row" colspan="10">Choose a date range and load leads.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="status-message" id="table-status" role="status" aria-live="polite"></div>
+            </div>
+
+            <aside class="panel">
+                <div class="panel-head">
+                    <h2>Daily View</h2>
+                </div>
+                <div class="day-list" id="day-list">
+                    <div class="empty-row">No daily data yet.</div>
+                </div>
+
+                <div class="panel-head">
+                    <h2>Follow Up</h2>
+                </div>
+                <div class="details">
+                    <div class="detail-grid" id="detail-grid">
+                        <span>Select a row to follow up.</span>
+                    </div>
+
+                    <div class="quick-grid">
+                        <button type="button" data-status="Waiting for approval">Waiting</button>
+                        <button type="button" data-status="Approved">Approved</button>
+                        <button type="button" data-status="Rejected">Rejected</button>
+                        <button type="button" data-status="Sent">Sent</button>
+                        <button type="button" data-status="Failed">Failed</button>
+                        <button type="button" data-status="Followed up">Followed Up</button>
+                    </div>
+
+                    <form id="followup-form">
+                        <div class="field">
+                            <label for="lead_id">Lead ID</label>
+                            <input type="text" id="lead_id" required>
+                        </div>
+                        <div class="field">
+                            <label for="client_email">Client Email</label>
+                            <input type="email" id="client_email">
+                        </div>
+                        <div class="field">
+                            <label for="sent_status">Sent Status</label>
+                            <select id="sent_status" required>
+                                <option value="Waiting for approval">Waiting for approval</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Rejected">Rejected</option>
+                                <option value="Sent">Sent</option>
+                                <option value="Failed">Failed</option>
+                                <option value="Followed up">Followed up</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="follow_up_notes">Follow-Up Notes</label>
+                            <textarea id="follow_up_notes" placeholder="Call notes, next action, or manual follow-up outcome."></textarea>
+                        </div>
+                        <div class="quick-grid">
+                            <button type="submit" id="save-btn">Save Update</button>
+                            <a class="link-button" id="email-link" href="mailto:">Email Client</a>
+                        </div>
+                    </form>
+                    <div class="status-message" id="form-status" role="status" aria-live="polite"></div>
+                    <p class="note">Keep this admin URL private. For real client data, protect this page with Vercel authentication or a private deployment.</p>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <script>
+        const ADMIN_WEBHOOK_URL = 'PASTE_YOUR_N8N_ADMIN_UPDATE_WEBHOOK_URL_HERE';
+        const LEADS_WEBHOOK_URL = 'PASTE_YOUR_N8N_LIST_LEADS_WEBHOOK_URL_HERE';
+
+        const statuses = ['Waiting for approval', 'Approved', 'Rejected', 'Sent', 'Failed', 'Followed up'];
+        const params = new URLSearchParams(window.location.search);
+        const inputs = {
+            startDate: document.getElementById('start_date'),
+            endDate: document.getElementById('end_date'),
+            search: document.getElementById('search_term'),
+            filterStatus: document.getElementById('filter_status'),
+            filterInsurance: document.getElementById('filter_insurance'),
+            sortBy: document.getElementById('sort_by'),
+            leadId: document.getElementById('lead_id'),
+            clientEmail: document.getElementById('client_email'),
+            sentStatus: document.getElementById('sent_status'),
+            notes: document.getElementById('follow_up_notes')
+        };
+
+        const tableBody = document.getElementById('lead-table-body');
+        const tableStatus = document.getElementById('table-status');
+        const formStatus = document.getElementById('form-status');
+        const detailGrid = document.getElementById('detail-grid');
+        const dayList = document.getElementById('day-list');
+        const emailLink = document.getElementById('email-link');
+
+        let leads = [];
+        let selectedLeadId = '';
+
+        function escapeHtml(value) {
+            return String(value || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function normalizeLead(rawLead) {
+            const body = rawLead.body || rawLead;
+            return {
+                lead_id: body.lead_id || body.id || '',
+                name: body.name || body.full_name || '',
+                email: body.email || body.client_email || '',
+                phone: body.phone || '',
+                insurance_type: body.insurance_type || body.insurance || '',
+                sent_status: body.sent_status || body.status || 'Waiting for approval',
+                submitted_at: body.submitted_at || body.created_at || '',
+                follow_up_notes: body.follow_up_notes || body.notes || ''
+            };
+        }
+
+        function statusClass(status) {
+            const value = String(status || '').toLowerCase();
+            if (value === 'sent') return 'sent';
+            if (value === 'followed up') return 'followed';
+            if (value === 'waiting for approval') return 'waiting';
+            if (value === 'approved') return 'approved';
+            if (value === 'rejected') return 'rejected';
+            if (value === 'failed') return 'failed';
+            return '';
+        }
+
+        function showMessage(element, message, type) {
+            element.textContent = message;
+            element.className = `status-message is-${type}`;
+        }
+
+        function clearMessage(element) {
+            element.textContent = '';
+            element.className = 'status-message';
+        }
+
+        function isoDate(value) {
+            if (!value) return '';
+            const parsed = new Date(value);
+            if (Number.isNaN(parsed.getTime())) return String(value).slice(0, 10);
+            return parsed.toISOString().slice(0, 10);
+        }
+
+        function readableDate(value) {
+            if (!value) return '';
+            const parsed = new Date(value);
+            if (Number.isNaN(parsed.getTime())) return value;
+            return parsed.toLocaleString([], {
+                year: 'numeric',
+                month: 'short',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function setInitialDates() {
+            const today = new Date().toISOString().slice(0, 10);
+            inputs.startDate.value = params.get('start_date') || today;
+            inputs.endDate.value = params.get('end_date') || today;
+        }
+
+        function updateEmailLink() {
+            const email = inputs.clientEmail.value.trim();
+            emailLink.href = email ? `mailto:${encodeURIComponent(email)}` : 'mailto:';
+        }
+
+        function leadMatchesFilters(lead) {
+            const term = inputs.search.value.trim().toLowerCase();
+            const haystack = [lead.name, lead.email, lead.phone, lead.lead_id, lead.insurance_type].join(' ').toLowerCase();
+            if (term && !haystack.includes(term)) return false;
+            if (inputs.filterStatus.value && lead.sent_status !== inputs.filterStatus.value) return false;
+            if (inputs.filterInsurance.value && lead.insurance_type !== inputs.filterInsurance.value) return false;
+            return true;
+        }
+
+        function filteredLeads() {
+            const sorted = leads.filter(leadMatchesFilters);
+            const sortBy = inputs.sortBy.value;
+            sorted.sort((a, b) => {
+                if (sortBy === 'submitted_asc') return new Date(a.submitted_at) - new Date(b.submitted_at);
+                if (sortBy === 'name_asc') return String(a.name).localeCompare(String(b.name));
+                if (sortBy === 'status_asc') return String(a.sent_status).localeCompare(String(b.sent_status));
+                if (sortBy === 'insurance_asc') return String(a.insurance_type).localeCompare(String(b.insurance_type));
+                if (sortBy === 'lead_id') return String(a.lead_id).localeCompare(String(b.lead_id));
+                return new Date(b.submitted_at) - new Date(a.submitted_at);
+            });
+            return sorted;
+        }
+
+        function updateInsuranceOptions() {
+            const current = inputs.filterInsurance.value;
+            const insuranceTypes = [...new Set(leads.map((lead) => lead.insurance_type).filter(Boolean))].sort();
+            inputs.filterInsurance.innerHTML = '<option value="">All</option>' + insuranceTypes.map((type) => `<option value="${escapeHtml(type)}">${escapeHtml(type)}</option>`).join('');
+            inputs.filterInsurance.value = insuranceTypes.includes(current) ? current : '';
+        }
+
+        function renderDashboard() {
+            document.getElementById('total-count').textContent = leads.length;
+            document.getElementById('waiting-count').textContent = leads.filter((lead) => lead.sent_status === 'Waiting for approval').length;
+            document.getElementById('sent-count').textContent = leads.filter((lead) => lead.sent_status === 'Sent').length;
+            document.getElementById('followed-count').textContent = leads.filter((lead) => lead.sent_status === 'Followed up').length;
+
+            const counts = leads.reduce((acc, lead) => {
+                const day = isoDate(lead.submitted_at) || 'No date';
+                acc[day] = (acc[day] || 0) + 1;
+                return acc;
+            }, {});
+            const max = Math.max(1, ...Object.values(counts));
+            const rows = Object.entries(counts).sort(([a], [b]) => b.localeCompare(a));
+
+            dayList.innerHTML = rows.length ? rows.map(([day, count]) => `
+                <div class="day-row">
+                    <span>${escapeHtml(day)}</span>
+                    <span class="day-bar"><span class="day-fill" style="width: ${(count / max) * 100}%"></span></span>
+                    <span>${count}</span>
+                </div>
+            `).join('') : '<div class="empty-row">No daily data yet.</div>';
+        }
+
+        function statusOptions(selected) {
+            return statuses.map((status) => `<option value="${status}" ${status === selected ? 'selected' : ''}>${status}</option>`).join('');
+        }
+
+        function renderTable() {
+            const rows = filteredLeads();
+            renderDashboard();
+
+            if (!rows.length) {
+                tableBody.innerHTML = '<tr><td class="empty-row" colspan="10">No leads match the current filters.</td></tr>';
+                return;
+            }
+
+            tableBody.innerHTML = rows.map((lead, index) => `
+                <tr data-lead-id="${escapeHtml(lead.lead_id)}" class="${lead.lead_id === selectedLeadId ? 'is-selected' : ''}">
+                    <td class="row-number">${index + 1}</td>
+                    <td>${escapeHtml(readableDate(lead.submitted_at))}</td>
+                    <td class="lead-id">${escapeHtml(lead.lead_id)}</td>
+                    <td>${escapeHtml(lead.name || 'Unnamed lead')}</td>
+                    <td>${escapeHtml(lead.email)}</td>
+                    <td>${escapeHtml(lead.phone)}</td>
+                    <td>${escapeHtml(lead.insurance_type)}</td>
+                    <td><span class="status-pill ${statusClass(lead.sent_status)}">${escapeHtml(lead.sent_status)}</span></td>
+                    <td>
+                        <select class="inline-select" data-inline-status="${escapeHtml(lead.lead_id)}">
+                            ${statusOptions(lead.sent_status)}
+                        </select>
+                    </td>
+                    <td>
+                        <div class="row-actions">
+                            <button type="button" class="secondary" data-action="open" data-lead-id="${escapeHtml(lead.lead_id)}">Open</button>
+                            <button type="button" data-action="save" data-lead-id="${escapeHtml(lead.lead_id)}">Save</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function selectLead(leadId) {
+            const lead = leads.find((item) => item.lead_id === leadId);
+            if (!lead) return;
+
+            selectedLeadId = leadId;
+            inputs.leadId.value = lead.lead_id;
+            inputs.clientEmail.value = lead.email;
+            inputs.sentStatus.value = lead.sent_status;
+            inputs.notes.value = lead.follow_up_notes;
+            updateEmailLink();
+
+            detailGrid.innerHTML = `
+                <span><strong>Name:</strong> ${escapeHtml(lead.name || 'Not provided')}</span>
+                <span><strong>Email:</strong> ${escapeHtml(lead.email || 'Not provided')}</span>
+                <span><strong>Phone:</strong> ${escapeHtml(lead.phone || 'Not provided')}</span>
+                <span><strong>Insurance:</strong> ${escapeHtml(lead.insurance_type || 'Not provided')}</span>
+                <span><strong>Submitted:</strong> ${escapeHtml(readableDate(lead.submitted_at) || 'Not provided')}</span>
+            `;
+            renderTable();
+        }
+
+        function listPayload() {
+            return {
+                start_date: inputs.startDate.value,
+                end_date: inputs.endDate.value,
+                requested_by: 'Owner admin sheet',
+                requested_at: new Date().toISOString()
+            };
+        }
+
+        function loadLeads() {
+            clearMessage(tableStatus);
+
+            if (LEADS_WEBHOOK_URL === 'PASTE_YOUR_N8N_LIST_LEADS_WEBHOOK_URL_HERE') {
+                showMessage(tableStatus, 'Add your n8n list-leads webhook URL in admin.html.', 'error');
+                return;
+            }
+
+            const loadButton = document.getElementById('load-leads-btn');
+            loadButton.disabled = true;
+            loadButton.textContent = 'Loading...';
+            tableBody.innerHTML = '<tr><td class="empty-row" colspan="10">Loading leads...</td></tr>';
+
+            fetch(LEADS_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(listPayload())
+            })
+            .then((response) => {
+                if (!response.ok) throw new Error(`Lead list failed with status ${response.status}`);
+                return response.json();
+            })
+            .then((data) => {
+                const rows = Array.isArray(data) ? data : data.leads || data.rows || [];
+                leads = rows.map(normalizeLead);
+                selectedLeadId = '';
+                updateInsuranceOptions();
+                renderTable();
+                detailGrid.innerHTML = '<span>Select a row to follow up.</span>';
+                showMessage(tableStatus, `Loaded ${leads.length} lead(s).`, 'success');
+            })
+            .catch((error) => {
+                console.error('Lead list failed:', error);
+                leads = [];
+                renderTable();
+                showMessage(tableStatus, 'Could not load leads. Check the n8n list webhook and CORS settings.', 'error');
+            })
+            .finally(() => {
+                loadButton.disabled = false;
+                loadButton.textContent = 'Load Leads';
+            });
+        }
+
+        function updateLeadLocal(payload) {
+            leads = leads.map((lead) => {
+                if (lead.lead_id !== payload.lead_id) return lead;
+                return {
+                    ...lead,
+                    email: payload.client_email || lead.email,
+                    sent_status: payload.sent_status,
+                    follow_up_notes: payload.follow_up_notes
+                };
+            });
+            renderTable();
+        }
+
+        function saveUpdate(payload) {
+            clearMessage(formStatus);
+
+            if (ADMIN_WEBHOOK_URL === 'PASTE_YOUR_N8N_ADMIN_UPDATE_WEBHOOK_URL_HERE') {
+                showMessage(formStatus, 'Add your n8n admin update webhook URL in admin.html.', 'error');
+                return Promise.resolve(false);
+            }
+
+            return fetch(ADMIN_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then((response) => {
+                if (!response.ok) throw new Error(`Admin update failed with status ${response.status}`);
+                updateLeadLocal(payload);
+                showMessage(formStatus, 'Lead update saved.', 'success');
+                return true;
+            })
+            .catch((error) => {
+                console.error('Admin update failed:', error);
+                showMessage(formStatus, 'Could not save this update. Check the n8n update webhook and CORS settings.', 'error');
+                return false;
+            });
+        }
+
+        function payloadFromForm() {
+            return {
+                lead_id: inputs.leadId.value.trim(),
+                client_email: inputs.clientEmail.value.trim(),
+                sent_status: inputs.sentStatus.value,
+                follow_up_notes: inputs.notes.value.trim(),
+                updated_by: 'Owner admin sheet',
+                updated_at: new Date().toISOString()
+            };
+        }
+
+        function payloadForLead(leadId, status) {
+            const lead = leads.find((item) => item.lead_id === leadId);
+            return {
+                lead_id: leadId,
+                client_email: lead ? lead.email : '',
+                sent_status: status,
+                follow_up_notes: lead ? lead.follow_up_notes : '',
+                updated_by: 'Owner admin sheet inline action',
+                updated_at: new Date().toISOString()
+            };
+        }
+
+        function findInlineStatusSelect(leadId) {
+            return [...document.querySelectorAll('[data-inline-status]')]
+                .find((select) => select.dataset.inlineStatus === leadId);
+        }
+
+        tableBody.addEventListener('click', function(event) {
+            const row = event.target.closest('tr[data-lead-id]');
+            const actionButton = event.target.closest('button[data-action]');
+            if (!row) return;
+
+            const leadId = row.dataset.leadId;
+            if (!actionButton) {
+                selectLead(leadId);
+                return;
+            }
+
+            if (actionButton.dataset.action === 'open') {
+                selectLead(leadId);
+                return;
+            }
+
+            const inlineSelect = findInlineStatusSelect(leadId);
+            const payload = payloadForLead(leadId, inlineSelect ? inlineSelect.value : 'Waiting for approval');
+            actionButton.disabled = true;
+            actionButton.textContent = 'Saving';
+            saveUpdate(payload).finally(() => {
+                actionButton.disabled = false;
+                actionButton.textContent = 'Save';
+            });
+        });
+
+        document.querySelectorAll('th[data-sort]').forEach((headerCell) => {
+            headerCell.addEventListener('click', function() {
+                inputs.sortBy.value = headerCell.dataset.sort;
+                renderTable();
+            });
+        });
+
+        document.querySelectorAll('.quick-grid button[data-status]').forEach((button) => {
+            button.addEventListener('click', function() {
+                inputs.sentStatus.value = button.dataset.status;
+                if (!inputs.leadId.value.trim()) return;
+                saveUpdate(payloadFromForm());
+            });
+        });
+
+        document.getElementById('followup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const saveBtn = document.getElementById('save-btn');
+            saveBtn.disabled = true;
+            saveBtn.textContent = 'Saving...';
+            saveUpdate(payloadFromForm()).finally(() => {
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Save Update';
+            });
+        });
+
+        document.getElementById('load-leads-btn').addEventListener('click', loadLeads);
+        document.getElementById('refresh-btn').addEventListener('click', loadLeads);
+        [inputs.search, inputs.filterStatus, inputs.filterInsurance, inputs.sortBy].forEach((input) => {
+            input.addEventListener('input', renderTable);
+            input.addEventListener('change', renderTable);
+        });
+        inputs.clientEmail.addEventListener('input', updateEmailLink);
+
+        setInitialDates();
+        inputs.leadId.value = params.get('lead_id') || '';
+        inputs.clientEmail.value = params.get('email') || '';
+        inputs.sentStatus.value = params.get('sent_status') || 'Waiting for approval';
+        updateEmailLink();
+        renderDashboard();
+    </script>
+</body>
+</html>
